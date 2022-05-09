@@ -8,7 +8,7 @@ Install Kubernetes and Docker on your virtual machine beforehand.
 ## Description
 ### Nodes
 There's two nodes in our project, one master node and one worker node.
-<img src="pic/nodes.jpg">
+<img src="Archive/pic/nodes.jpg">
 
 ### Images
 We used the meinheld-gunicorn image to containerize our python code. This image is avaliable on DockerHub. https://hub.docker.com/r/tiangolo/meinheld-gunicorn
