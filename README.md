@@ -4,6 +4,58 @@ The main goal of this assignment is to containerize the URL shortening project f
 
 ## Install 
 Install Kubernetes and Docker on your virtual machine beforehand.
+### 3.1
+Step1：Build the auth server image.
+```console
+docker build -t auth .
+```
+Step2: Run the container of auth server.
+```console
+docker run -it --name flask_container2 -p 5001:5001 shortener
+```
+
+Step3: Build the shortener server image.
+```console
+docker build -t shortener .
+```
+
+Step4: Run the container of shortener server and link it to the auth server(start auth server first)
+```console
+docker run -it --name flask_container3 --link flask_container2:auth_server -p 5000:5000 shortener
+```
+
+### 3.2
+Step1: Upload the code of shortener to the work nodes.
+```console
+scp -r /Users/aaa/Downloads/wdsc/A3.1/shortener student030@145.100.134.30:/home/student030
+```
+
+Step2: Building the shortener image on server.
+```console
+docker build -t shortener .
+```
+
+Step3: Upload the code of shortener to the work nodes.
+```console
+scp -r /Users/aaa/Downloads/wdsc/A3.1/auth student028@145.100.134.28:/home/student028
+```
+
+Step4: Building the auth image on server.
+```console
+docker build -t auth .
+```
+
+Step5: Upload the yaml files to the master node.
+```console
+scp -r /Users/aaa/Downloads/wdsc/A3.1/auth.yaml student029@145.100.134.28:/home/student029
+scp -r /Users/aaa/Downloads/wdsc/A3.1/shortener.yaml student029@145.100.134.28:/home/student029
+```
+
+Step6: Apply the deployment and service yaml files.
+```console
+kubectl apply -f auth.yaml
+kubectl apply -f shortener.yaml
+```
 
 ## Description
 ### Nodes
