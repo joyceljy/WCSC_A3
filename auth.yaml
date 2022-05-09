@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-deployment
+  name: auth-deployment #the name of the deployment
 spec:
   selector:
     matchLabels:
-      app: auth
-  replicas: 3 
+      app: auth #define the behavior of pods which matches this label
+  replicas: 1 #creacte 1 instances of pods 
   template:
     metadata:
       labels:
-        app: auth
+        app: auth #the label of all pods created from this deployment 
     spec:
       containers:
-      - name: auth
-        image: auth
-        imagePullPolicy: Never
+      - name: auth #container name
+        image: auth  #image name
+        imagePullPolicy: Never #no retry when pulling failed
         ports:
-        - containerPort: 5001
+        - containerPort: 5001 #the port of the container
 ---
 kind: Service 
 apiVersion: v1 
@@ -28,7 +28,7 @@ spec:
     app: auth 
   ports: 
   - protocol: TCP 
-    port: 5001
-    targetPort: 5001
-    nodePort: 31001 
+    port: 5001 #the port that exposes the kubernetes services in the cluster
+    targetPort: 5001 #the port that the service will send requests to (pod port)
+    nodePort: 31001 #the node that exposes the kubernetes services outside.
   type: NodePort 
